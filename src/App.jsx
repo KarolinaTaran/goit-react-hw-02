@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Feedback from "./components/feedbackComponent/Feedback";
-import Options from "./components/optionsComponent/Options";
-import Notification from "./components/notificationComponent/Notification";
-import Description from "./components/descriptionComponent/Description";
+import Feedback from "./components/Feedback/Feedback";
+import Options from "./components/Options/Options";
+import Notification from "./components/Notification/Notification";
+import Description from "./components/Description/Description";
 
 function App() {
   const [feedbacks, setFeedbacks] = useState(() => {
@@ -24,6 +24,9 @@ function App() {
     }));
   };
   const totalFeedback = feedbacks.good + feedbacks.neutral + feedbacks.bad;
+  const positive = Math.round(
+    ((feedbacks.good + feedbacks.neutral) / totalFeedback) * 100
+  );
   const [showFeedback, setshowFeedback] = useState(true);
   const handleToggleShowFeedback = () => {
     setshowFeedback((prevState) => !prevState);
@@ -53,7 +56,7 @@ function App() {
           neutral={feedbacks.neutral}
           bad={feedbacks.bad}
           totalFeedback={totalFeedback}
-          positive={feedbacks.positive}
+          positive={positive}
         />
       ) : (
         <Notification />
